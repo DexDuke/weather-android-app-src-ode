@@ -563,14 +563,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.08" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.44" />
+            app:layout_constraintGuide_percent="0.42" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline28"
@@ -603,7 +603,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.55" />
+            app:layout_constraintGuide_percent="0.52" />
 
         <TextView
             android:id="@+id/previousHour"
@@ -651,7 +651,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
             android:fontFamily="@font/pp_regular"
-            android:text="Hello world"
+            android:text="13°C"
             android:textColor="@color/grey"
             app:layout_constraintBottom_toTopOf="@id/nextHour"
             app:layout_constraintLeft_toLeftOf="@id/nextHour"
@@ -664,7 +664,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
             android:fontFamily="@font/pp_bold"
-            android:text="Hello world"
+            android:text="11°C"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/currentHour"
             app:layout_constraintLeft_toLeftOf="@id/currentHour"
@@ -677,7 +677,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
             android:fontFamily="@font/pp_regular"
-            android:text="Hello world"
+            android:text="10°C"
             android:textColor="@color/grey"
             app:layout_constraintBottom_toTopOf="@id/previousHour"
             app:layout_constraintLeft_toLeftOf="@id/previousHour"
@@ -692,7 +692,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.7" />
+            app:layout_constraintGuide_percent="0.66" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
@@ -725,7 +725,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.295" />
+            app:layout_constraintGuide_percent="0.27" />
 
         <ImageView
             android:id="@+id/imageView2"
