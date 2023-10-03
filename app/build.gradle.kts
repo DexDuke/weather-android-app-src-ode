@@ -38,6 +38,16 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.gms:play-services-location:18.0.0")
 
+    //
+
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.0")
+    implementation("com.google.code.gson:gson:2.8.8")
+//    implementation ("org.apache.httpcomponents:httpclient:4.5.13")
+    implementation ("org.json:json:20210307")
+
+
+    //
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
