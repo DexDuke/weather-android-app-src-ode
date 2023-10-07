@@ -45,6 +45,12 @@ dependencies {
 //    implementation ("org.apache.httpcomponents:httpclient:4.5.13")
     implementation ("org.json:json:20210307")
 
+    
+    //
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
 
     //
 
