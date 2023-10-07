@@ -45,7 +45,8 @@ dependencies {
 //    implementation ("org.apache.httpcomponents:httpclient:4.5.13")
     implementation ("org.json:json:20210307")
 
-    
+    implementation("com.google.android.gms:play-services-maps:17.0.1")
+    implementation("org.jsoup:jsoup:1.14.2")
     //
 
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")

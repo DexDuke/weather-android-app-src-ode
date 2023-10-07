@@ -70,6 +70,7 @@ public class Api extends AsyncTask<Void, Void, WeatherData> {
             JSONArray weatherArray = jsonObject.getJSONArray("weather");
             JSONObject weatherObject = weatherArray.getJSONObject(0);
             String description = weatherObject.getString("description");
+            int id=weatherObject.getInt("id");
 
 
             JSONObject windObject = jsonObject.getJSONObject("wind");
@@ -106,6 +107,7 @@ public class Api extends AsyncTask<Void, Void, WeatherData> {
             weatherData.setStatus(description);
             weatherData.setHumidity(humidity + "");
             weatherData.setFeelsLike(convertCelsiusFromKelvin(feelsLike));
+            weatherData.setId(id);
 
             return weatherData;
         } catch (IOException | JSONException e) {

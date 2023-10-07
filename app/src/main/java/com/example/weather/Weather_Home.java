@@ -8,14 +8,17 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.weather.Location.WebsiteScrapingTask;
 import com.example.weather.api.Api;
 import com.example.weather.api.WeatherData;
 import com.example.weather.hourly.WeatherApiHourly;
@@ -26,17 +29,25 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class Weather_Home extends AppCompatActivity implements Api.ApiCallback {
 
     private ImageButton reload;
+    private ImageView weatherIcon;
     private TextView localCity,
             division,
             todayTemperature,
@@ -61,6 +72,7 @@ public class Weather_Home extends AppCompatActivity implements Api.ApiCallback {
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
 //    private LocationUtility locationUtility;
+
 
     @Override
     protected void onStart() {
@@ -92,6 +104,9 @@ public class Weather_Home extends AppCompatActivity implements Api.ApiCallback {
         currentHour=findViewById(R.id.currentHour);
         nextHour=findViewById(R.id.nextHour);
         previousHour=findViewById(R.id.previousHour);
+        WebsiteScrapingTask websiteScrapingTask=new WebsiteScrapingTask(localCity,division);
+        websiteScrapingTask.execute();
+        weatherIcon=findViewById(R.id.imageView);
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +116,8 @@ public class Weather_Home extends AppCompatActivity implements Api.ApiCallback {
                 refreshUi();
             }
         });
+
+
     }
 
     void refreshUi() {
@@ -192,6 +209,8 @@ public class Weather_Home extends AppCompatActivity implements Api.ApiCallback {
         hideLoadingDialog();
         if (data != null) {
 
+
+
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
 
@@ -222,6 +241,53 @@ public class Weather_Home extends AppCompatActivity implements Api.ApiCallback {
             previousHour.setText(getHourAndAMPM(pTime));
             nextHour.setText(getHourAndAMPM(nTime));
 
+            int id=data.getId();
+            if(id>=200 && id<=232){
+                //thunderstorm:
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_11d);
+                weatherIcon.setImageDrawable(drawable);
+            }else if(id>=300 && id<=321){
+                //drizzle
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_09d);
+                weatherIcon.setImageDrawable(drawable);
+            }else if(id>=500 && id<=531){
+                //rain
+                if(id<511){
+                    //light rain
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_10d);
+                    weatherIcon.setImageDrawable(drawable);
+                }else if(id==511){
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_13d);
+                    weatherIcon.setImageDrawable(drawable);
+                }else if(id>520){
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_09d);
+                    weatherIcon.setImageDrawable(drawable);
+                }
+            }else if(id>=600 && id<=622){
+                //snow:
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_13d);
+                weatherIcon.setImageDrawable(drawable);
+            }else if(id>=701 && id<781){
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_50d);
+                weatherIcon.setImageDrawable(drawable);
+            }else if(id==800){
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_01d);
+                weatherIcon.setImageDrawable(drawable);
+            }else if(id>=801 && id<=804){
+                if(id==801){
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_02d);
+                    weatherIcon.setImageDrawable(drawable);
+                }else if(id==802){
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_03d);
+                    weatherIcon.setImageDrawable(drawable);
+                }else if(id==803){
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_04d);
+                    weatherIcon.setImageDrawable(drawable);
+                }else if(id==804){
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_04d);
+                    weatherIcon.setImageDrawable(drawable);
+                }
+            }
 
             WeatherApiHourly.getHourlyWeather(lat,lon, new WeatherApiHourly.WeatherResponseListener() {
                 @Override
@@ -234,6 +300,8 @@ public class Weather_Home extends AppCompatActivity implements Api.ApiCallback {
                 }
             });
         }
+
+        hideLoadingDialog();
     }
 
     private String getHourAndAMPM(String time) {

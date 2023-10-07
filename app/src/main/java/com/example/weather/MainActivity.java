@@ -21,19 +21,56 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
     private AppCompatButton button;
+    int count = 0;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            File file = new File(getFilesDir(), "flag.txt"); // Use getFilesDir() to get the app's file directory
+            if (file.exists()) {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+
+                String line = br.readLine();
+                if (line != null && !line.isEmpty()) {
+                    Intent it = new Intent(MainActivity.this, Weather_Home.class);
+                    startActivity(it);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button=findViewById(R.id.letsGoBtn);
+        button = findViewById(R.id.letsGoBtn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it=new Intent(MainActivity.this, Weather_Home.class);
-                startActivity(it);
+                count++;
+                try {
+                    File file = new File(getFilesDir(), "flag.txt"); // Use getFilesDir() to get the app's file directory
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+                    bw.write(String.valueOf(count));
+                    bw.close(); // Make sure to close the BufferedWriter
+
+                    Intent it = new Intent(MainActivity.this, Weather_Home.class);
+                    startActivity(it);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
