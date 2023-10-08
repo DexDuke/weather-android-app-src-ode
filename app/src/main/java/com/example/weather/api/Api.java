@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Api extends AsyncTask<Void, Void, WeatherData> {
-    private String apiKey = "108e658ece27b123c22273339290aec2";
+    private String apiKey = "***** OpenWeathermap api key *****";
     private double latitude;
     private double longitude;
     private WeakReference<ApiCallback> callback;
